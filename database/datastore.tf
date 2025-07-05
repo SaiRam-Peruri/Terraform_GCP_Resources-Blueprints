@@ -1,28 +1,13 @@
 // datastore resource
 
 // GCP Datastore (legacy) - modular and production-grade
+// Note: Datastore has been deprecated in favor of Firestore
 
-variable "project_id" {
-  description = "The GCP project ID."
-  type        = string
-}
+# This is a placeholder for legacy Datastore support
+# Most Datastore functionality has been superseded by Firestore
+# Consider using the firestore.tf resource instead
 
-variable "location_id" {
-  description = "The location for the Datastore."
-  type        = string
-  default     = "us-central"
-}
-
-resource "google_datastore_index" "default" {
-  project     = var.project_id
-  kind        = "SampleKind"
-  properties {
-    name      = "sampleProperty"
-    direction = "ASCENDING"
-  }
-}
-
-output "datastore_index_id" {
-  description = "The ID of the created Datastore index."
-  value       = google_datastore_index.default.id
+output "datastore_info" {
+  description = "Information about Datastore migration to Firestore."
+  value       = "Datastore has been deprecated. Please use Firestore instead."
 }

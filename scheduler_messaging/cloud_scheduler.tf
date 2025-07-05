@@ -45,10 +45,10 @@ variable "retry_config" {
 }
 
 resource "google_cloud_scheduler_job" "default" {
-  name        = var.name
-  project     = var.project_id
-  schedule    = var.schedule
-  time_zone   = var.time_zone
+  name      = var.name
+  project   = var.project_id
+  schedule  = var.schedule
+  time_zone = var.time_zone
 
   dynamic "pubsub_target" {
     for_each = var.http_target == null ? [1] : []
@@ -71,11 +71,11 @@ resource "google_cloud_scheduler_job" "default" {
   dynamic "retry_config" {
     for_each = var.retry_config != null ? [1] : []
     content {
-      retry_count           = lookup(var.retry_config, "retry_count", null)
-      max_retry_duration    = lookup(var.retry_config, "max_retry_duration", null)
-      min_backoff_duration  = lookup(var.retry_config, "min_backoff_duration", null)
-      max_backoff_duration  = lookup(var.retry_config, "max_backoff_duration", null)
-      max_doublings         = lookup(var.retry_config, "max_doublings", null)
+      retry_count          = lookup(var.retry_config, "retry_count", null)
+      max_retry_duration   = lookup(var.retry_config, "max_retry_duration", null)
+      min_backoff_duration = lookup(var.retry_config, "min_backoff_duration", null)
+      max_backoff_duration = lookup(var.retry_config, "max_backoff_duration", null)
+      max_doublings        = lookup(var.retry_config, "max_doublings", null)
     }
   }
 }

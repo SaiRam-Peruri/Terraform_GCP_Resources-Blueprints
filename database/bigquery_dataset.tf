@@ -1,32 +1,10 @@
 // GCP BigQuery Dataset - modular and production-grade
 
-variable "project_id" {
-  description = "The GCP project ID."
-  type        = string
-}
-
-variable "dataset_id" {
-  description = "The dataset ID."
-  type        = string
-}
-
-variable "location" {
-  description = "The location for the dataset."
-  type        = string
-  default     = "US"
-}
-
-variable "description" {
-  description = "A user-friendly description of the dataset."
-  type        = string
-  default     = null
-}
-
 resource "google_bigquery_dataset" "default" {
-  project     = var.project_id
-  dataset_id  = var.dataset_id
-  location    = var.location
-  description = var.description
+  project     = local.project_id
+  dataset_id  = local.dataset_id
+  location    = local.location
+  description = local.description
 }
 
 output "bigquery_dataset_id" {

@@ -1,42 +1,5 @@
 // GCP Compute VM Instance - modular and production-grade
 
-variable "project_id" {
-  description = "The GCP project ID."
-  type        = string
-}
-
-variable "zone" {
-  description = "The zone to deploy the VM."
-  type        = string
-}
-
-variable "vm_name" {
-  description = "The name of the VM instance."
-  type        = string
-}
-
-variable "machine_type" {
-  description = "The machine type for the VM."
-  type        = string
-  default     = "e2-micro"
-}
-
-variable "boot_image" {
-  description = "The image for the VM boot disk."
-  type        = string
-  default     = "debian-cloud/debian-11"
-}
-
-variable "network_id" {
-  description = "The VPC network ID."
-  type        = string
-}
-
-variable "subnet_id" {
-  description = "The subnetwork ID."
-  type        = string
-}
-
 resource "google_compute_instance" "vm_instance" {
   name         = var.vm_name
   machine_type = var.machine_type
@@ -52,12 +15,29 @@ resource "google_compute_instance" "vm_instance" {
   network_interface {
     network    = var.network_id
     subnetwork = var.subnet_id
-    access_config {}
+    access_config {
+      // Ephemeral public IP
+    }
   }
-  // Add metadata, service account, tags, etc. as needed
+
+  metadata = {
+    startup-script = "#!/bin/bash\necho 'Hello World' > /tmp/hello.txt"
+  }
+
+  tags = ["http-server", "https-server"]
 }
 
 output "vm_instance_id" {
   description = "The ID of the created VM instance."
   value       = google_compute_instance.vm_instance.id
+}
+
+output "vm_internal_ip" {
+  description = "The internal IP address of the VM instance."
+  value       = google_compute_instance.vm_instance.network_interface[0].network_ip
+}
+
+output "vm_external_ip" {
+  description = "The external IP address of the VM instance."
+  value       = length(google_compute_instance.vm_instance.network_interface[0].access_config) > 0 ? google_compute_instance.vm_instance.network_interface[0].access_config[0].nat_ip : null
 }

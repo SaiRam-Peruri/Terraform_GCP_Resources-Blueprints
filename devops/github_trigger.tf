@@ -33,8 +33,8 @@ variable "build_config_path" {
 }
 
 resource "google_cloudbuild_trigger" "github_trigger" {
-  project     = var.project_id
-  name        = var.trigger_name
+  project = var.project_id
+  name    = var.trigger_name
   github {
     owner = var.owner
     name  = var.repo_name

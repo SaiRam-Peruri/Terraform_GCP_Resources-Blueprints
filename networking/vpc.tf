@@ -1,31 +1,21 @@
 // GCP VPC Network - modular and production-grade
 
-variable "project_id" {
-  description = "The GCP project ID to deploy the VPC."
-  type        = string
-}
-
-variable "name" {
-  description = "The name of the VPC network."
-  type        = string
-}
-
-variable "auto_create_subnetworks" {
-  description = "Whether to create default subnets. Should be false for custom subnets."
-  type        = bool
-  default     = false
-}
-
 resource "google_compute_network" "vpc_network" {
-  name                    = var.name
+  name                    = var.vpc_name
   project                 = var.project_id
   auto_create_subnetworks = var.auto_create_subnetworks
-  // Enable flow logs, routing, etc. as needed for production
+
+  description = "VPC network managed by Terraform"
 }
 
 output "vpc_network_id" {
   description = "The ID of the created VPC network."
   value       = google_compute_network.vpc_network.id
+}
+
+output "vpc_network_self_link" {
+  description = "The self link of the created VPC network."
+  value       = google_compute_network.vpc_network.self_link
 }
 
 

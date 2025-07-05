@@ -1,49 +1,39 @@
 // GCP Managed Instance Group - modular and production-grade
 
-variable "project_id" {
-  description = "The GCP project ID."
-  type        = string
-}
-
-variable "region" {
-  description = "The region for the instance group."
-  type        = string
-}
-
-variable "group_name" {
-  description = "The name of the managed instance group."
-  type        = string
-}
-
-variable "base_instance_name" {
-  description = "The base name for instances."
-  type        = string
-}
-
-variable "instance_template" {
-  description = "The self_link of the instance template."
-  type        = string
-}
-
-variable "target_size" {
-  description = "The number of instances in the group."
-  type        = number
-  default     = 1
-}
-
 resource "google_compute_region_instance_group_manager" "mig" {
+  count              = var.group_name != null ? 1 : 0
   name               = var.group_name
   base_instance_name = var.base_instance_name
   region             = var.region
   project            = var.project_id
+
   version {
-    instance_template = var.instance_template
+    instance_template = length(google_compute_instance_template.template) > 0 ? google_compute_instance_template.template[0].self_link : null
   }
+
   target_size = var.target_size
-  // Add autohealing, named ports, etc. as needed
+
+  # Remove auto_healing_policies for now - requires a valid health check
+  # auto_healing_policies {
+  #   health_check      = google_compute_health_check.default.self_link
+  #   initial_delay_sec = 300
+  # }
+
+  update_policy {
+    type                         = "PROACTIVE"
+    instance_redistribution_type = "PROACTIVE"
+    minimal_action               = "REPLACE"
+    max_surge_fixed              = 1
+    max_unavailable_fixed        = 0
+  }
 }
 
 output "mig_id" {
   description = "The ID of the created managed instance group."
-  value       = google_compute_region_instance_group_manager.mig.id
+  value       = length(google_compute_region_instance_group_manager.mig) > 0 ? google_compute_region_instance_group_manager.mig[0].id : null
+}
+
+output "mig_instance_group" {
+  description = "The instance group of the managed instance group."
+  value       = length(google_compute_region_instance_group_manager.mig) > 0 ? google_compute_region_instance_group_manager.mig[0].instance_group : null
 }

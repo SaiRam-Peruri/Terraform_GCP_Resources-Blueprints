@@ -1,40 +1,24 @@
 // GCP Subnetwork - modular and production-grade
 
-variable "project_id" {
-  description = "The GCP project ID to deploy the subnet."
-  type        = string
-}
-
-variable "region" {
-  description = "The region for the subnet."
-  type        = string
-}
-
-variable "subnet_name" {
-  description = "The name of the subnetwork."
-  type        = string
-}
-
-variable "ip_cidr_range" {
-  description = "The primary IP CIDR range for the subnet."
-  type        = string
-}
-
-variable "vpc_network_id" {
-  description = "The VPC network ID to associate with this subnet."
-  type        = string
-}
-
 resource "google_compute_subnetwork" "subnet" {
+  count         = var.subnet_name != null ? 1 : 0
   name          = var.subnet_name
   ip_cidr_range = var.ip_cidr_range
   region        = var.region
-  network       = var.vpc_network_id
+  network       = google_compute_network.vpc_network.id
   project       = var.project_id
-  // Add secondary ranges, private access, etc. as needed
+
+  description = "Subnet managed by Terraform"
+
+  private_ip_google_access = true
 }
 
 output "subnet_id" {
   description = "The ID of the created subnetwork."
-  value       = google_compute_subnetwork.subnet.id
+  value       = length(google_compute_subnetwork.subnet) > 0 ? google_compute_subnetwork.subnet[0].id : null
+}
+
+output "subnet_self_link" {
+  description = "The self link of the created subnetwork."
+  value       = length(google_compute_subnetwork.subnet) > 0 ? google_compute_subnetwork.subnet[0].self_link : null
 }

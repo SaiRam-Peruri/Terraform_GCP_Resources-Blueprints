@@ -12,51 +12,63 @@ module "required_apis" {
   name       = var.project_name
 }
 
-// Networking
-module "vpc" {
-  source     = "./networking/vpc"
+// Networking (Fixed: Variables consolidated, removed duplicates)
+module "networking" {
+  source     = "./networking"
   project_id = var.project_id
-  name       = var.vpc_name
+  vpc_name   = var.vpc_name
   region     = var.region
 }
 
 // Compute
-module "compute_vm" {
-  source     = "./compute/vm"
-  project_id = var.project_id
-  name       = var.vm_name
-  zone       = var.zone
+module "compute" {
+  source       = "./compute"
+  project_id   = var.project_id
+  vm_name      = var.vm_name
+  zone         = var.zone
+  region       = var.region
+  machine_type = "e2-micro"
+  boot_image   = "debian-cloud/debian-11"
+  network_id   = "default"
+  subnet_id    = null
 }
 
 // Storage
-module "storage_bucket" {
-  source     = "./storage/bucket"
-  project_id = var.project_id
-  name       = var.bucket_name
-  location   = var.region
+module "storage" {
+  source             = "./storage"
+  project_id         = var.project_id
+  bucket_name        = var.bucket_name
+  location           = var.region
+  force_destroy      = false
+  versioning_enabled = true
 }
 
 // IAM
-module "service_account" {
-  source     = "./iam/service_account"
-  project_id = var.project_id
-  name       = var.sa_name
+module "iam" {
+  source       = "./iam"
+  project_id   = var.project_id
+  account_id   = var.sa_name
+  display_name = "Terraform managed service account"
+  description  = "Service account created by Terraform for GCP resources"
+  service      = var.iam_service
+  log_types    = var.iam_log_types
 }
 
-// Serverless
-module "cloud_function" {
-  source     = "./serverless/cloud_function"
+// Serverless (Fixed: Variables consolidated, removed duplicates)
+module "serverless" {
+  source     = "./serverless"
   project_id = var.project_id
   name       = var.function_name
   region     = var.region
 }
 
-// Database
-module "cloudsql" {
-  source     = "./database/cloudsql"
+// Database (Fixed: Variables consolidated, removed duplicates)
+module "database" {
+  source     = "./database"
   project_id = var.project_id
   name       = var.db_name
   region     = var.region
+  redis_tier = var.redis_tier
 }
 
 // Monitoring

@@ -12,7 +12,7 @@ resource "google_monitoring_uptime_check_config" "default" {
   }
 
   monitored_resource {
-    type   = "uptime_url"
+    type = "uptime_url"
     labels = {
       host = var.host
     }

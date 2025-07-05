@@ -40,6 +40,18 @@ variable "sa_name" {
   type        = string
 }
 
+variable "iam_service" {
+  description = "The GCP service to enable audit logging for (e.g., storage.googleapis.com)."
+  type        = string
+  default     = "storage.googleapis.com"
+}
+
+variable "iam_log_types" {
+  description = "The types of logs to enable for audit logging (e.g., DATA_READ, DATA_WRITE, ADMIN_READ)."
+  type        = list(string)
+  default     = ["ADMIN_READ", "DATA_WRITE"]
+}
+
 variable "function_name" {
   description = "The name of the Cloud Function."
   type        = string
@@ -48,6 +60,12 @@ variable "function_name" {
 variable "db_name" {
   description = "The name of the Cloud SQL instance."
   type        = string
+}
+
+variable "redis_tier" {
+  description = "The Redis tier for Memorystore (BASIC or STANDARD_HA)."
+  type        = string
+  default     = "BASIC"
 }
 
 variable "secret_id" {

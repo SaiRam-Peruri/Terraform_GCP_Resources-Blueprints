@@ -26,10 +26,10 @@ variable "subnet_id" {
 }
 
 resource "google_container_cluster" "autopilot" {
-  name     = var.cluster_name
-  project  = var.project_id
-  location = var.region
-  network  = var.network_id
+  name       = var.cluster_name
+  project    = var.project_id
+  location   = var.region
+  network    = var.network_id
   subnetwork = var.subnet_id
 
   enable_autopilot = true

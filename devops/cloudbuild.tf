@@ -30,10 +30,10 @@ variable "build_config_path" {
 }
 
 resource "google_cloudbuild_trigger" "trigger" {
-  project     = var.project_id
-  name        = var.trigger_name
+  project = var.project_id
+  name    = var.trigger_name
   trigger_template {
-    repo_name = var.repo_name
+    repo_name   = var.repo_name
     branch_name = var.branch_regex
   }
   filename = var.build_config_path
