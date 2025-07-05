@@ -353,9 +353,9 @@ We welcome contributions! Please:
 **Sairam Peruri**  
 Cloud Engineer & DevOps Specialist
 
-- 💼 LinkedIn: [Connect with me](https://linkedin.com/in/sairam-peruri)
-- 📧 Email: [Contact](mailto:your-email@example.com)
-- 🌐 Portfolio: [View my work](https://your-portfolio.com)
+- 💼 LinkedIn: [Connect with me](https://www.linkedin.com/in/sairamperuri/)
+- 🌐 Portfolio: [View my work](https://sairam-peruri.github.io/portfolio/)
+- 📧 Email: [Contact](mailto:sairamperuri@example.com)
 
 ---
 
