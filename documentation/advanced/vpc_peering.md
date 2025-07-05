@@ -1,14 +1,46 @@
-# vpc_peering.tf
+# VPC Peering Module
 
-## What is it?
-Defines Google Compute Network Peering resources for connecting two VPC networks, either within the same project or across different projects.
+## Overview
+Provides enterprise-grade VPC network peering capabilities for connecting VPC networks within the same project or across different projects with secure, private connectivity.
 
-## Why use it?
-VPC peering allows private connectivity between VPC networks, enabling secure communication between services without traversing the public internet. It's essential for microservices, multi-project, or hybrid cloud architectures.
+## Features
+- **Conditional Creation**: Only creates resources when `enable_vpc_peering = true`
+- **Bidirectional Peering**: Creates both directions of peering automatically
+- **Cross-Project Support**: Supports peering between different GCP projects
+- **Private Connectivity**: Secure communication without public internet
 
-## How to use
-- Set `project_id`, `network_name`, `peer_project_id`, and `peer_network_name` as variables.
-- This module creates bidirectional peering between two VPCs, ensuring full connectivity.
+## Architecture
+The module creates:
+- `google_compute_network_peering` (2 resources) - Bidirectional VPC peering connections
 
-## How it's used in this project
-This file provides a modular, reusable way to establish VPC peering, supporting scalable and secure network topologies across your GCP environment.
+## Configuration
+```hcl
+# In terraform.tfvars or variables
+enable_vpc_peering  = true
+network_name        = "my-vpc"
+peer_project_id     = "peer-project-123"
+peer_network_name   = "peer-vpc"
+```
+
+## Variables
+- `enable_vpc_peering` (bool) - Whether to enable VPC peering (default: false)
+- `network_name` (string) - The name of the local VPC network
+- `peer_project_id` (string) - The project ID of the peer VPC
+- `peer_network_name` (string) - The name of the peer VPC network
+- `project_id` (string) - The local project ID
+
+## Outputs
+- `vpc_peering1_name` - The name of the first peering connection (null if disabled)
+- `vpc_peering2_name` - The name of the second peering connection (null if disabled)
+
+## Use Cases
+- **Multi-Project Architecture**: Connect services across project boundaries
+- **Microservices**: Enable private communication between service networks
+- **Hybrid Cloud**: Connect on-premises networks via VPC peering
+- **Environment Separation**: Connect dev/staging/prod environments securely
+
+## Best Practices
+- Plan IP address ranges to avoid conflicts
+- Use firewall rules to control traffic between peered networks
+- Monitor peering connections through Cloud Monitoring
+- Document peering relationships for network topology management

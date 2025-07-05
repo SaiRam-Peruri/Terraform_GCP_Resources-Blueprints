@@ -1,21 +1,13 @@
 // GCP Access Context Manager - modular and production-grade
-
-variable "organization_id" {
-  description = "The GCP organization ID."
-  type        = string
-}
-
-variable "access_policy_title" {
-  description = "The title for the access policy."
-  type        = string
-}
+// Only creates resources when enable_access_context is true
 
 resource "google_access_context_manager_access_policy" "default" {
+  count  = var.enable_access_context ? 1 : 0
   parent = "organizations/${var.organization_id}"
-  title  = var.access_policy_title
+  title  = "${var.project_name}-access-policy"
 }
 
 output "access_policy_id" {
   description = "The ID of the created access policy."
-  value       = google_access_context_manager_access_policy.default.id
+  value       = var.enable_access_context ? google_access_context_manager_access_policy.default[0].id : null
 }

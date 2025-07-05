@@ -86,13 +86,53 @@ module "monitoring" {
   uptime_check_name         = var.monitoring_uptime_check_name
 }
 
-// Add additional modules for each resource type as needed
-// e.g., devops, containers, advanced, scheduler_messaging, outputs, etc.
+// Note: Additional modules are available but commented out pending variable consolidation
+// TODO: Uncomment and configure containers, devops, scheduler_messaging, and advanced modules
+// when their variables are properly consolidated
 
-// Example for advanced/secrets_manager
-module "secrets_manager" {
-  source      = "./advanced/secrets_manager"
-  project_id  = var.project_id
-  secret_id   = var.secret_id
-  secret_data = var.secret_data
+/*
+// Containers
+module "containers" {
+  source       = "./containers"
+  project_id   = var.project_id
+  region       = var.region
+  cluster_name = var.gke_name
+  network_id   = module.networking.vpc_id
+  subnet_id    = module.networking.subnet_id
+  node_pool_name = "${var.gke_name}-nodes"
 }
+
+// DevOps
+module "devops" {
+  source        = "./devops"
+  project_id    = var.project_id
+  location      = var.region
+  name          = var.devops_name
+  trigger_name  = "${var.devops_name}-trigger"
+  owner         = var.github_owner
+  repo_name     = var.github_repo
+  repository_id = var.source_repo_id
+}
+
+// Scheduler & Messaging
+module "scheduler_messaging" {
+  source            = "./scheduler_messaging"
+  project_id        = var.project_id
+  name              = var.scheduler_name
+  topic_name        = "${var.scheduler_name}-topic"
+  subscription_name = "${var.scheduler_name}-sub"
+  schedule          = var.scheduler_cron
+  topic             = var.pubsub_topic
+  pubsub_topic      = var.pubsub_topic
+}
+
+// Advanced Features (KMS, Secrets, VPC Peering, etc.)
+module "advanced" {
+  source               = "./advanced"
+  project_id           = var.project_id
+  region               = var.region
+  service_project_id   = var.project_id
+  crypto_key_name      = "${var.advanced_name}-key"
+  access_policy_title  = "${var.advanced_name}-policy"
+}
+*/

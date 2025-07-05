@@ -1,14 +1,45 @@
-# shared_vpc.tf
+# Shared VPC Module
 
-## What is it?
-Defines resources for setting up a Shared VPC in GCP, including host and service project attachments. Shared VPC allows multiple projects to share a common VPC network.
+## Overview
+Provides enterprise-grade Shared VPC configuration for centralized network management across multiple GCP projects. Enables organizations to manage network resources centrally while allowing service projects to consume them.
 
-## Why use it?
-Shared VPC enables centralized network management, improved security, and easier compliance by allowing network resources to be managed in a single host project while service projects consume those resources.
+## Features
+- **Conditional Creation**: Only creates resources when `enable_shared_vpc = true`
+- **Host Project Configuration**: Sets up the host project for Shared VPC
+- **Service Project Attachment**: Attaches service projects to the Shared VPC
+- **Centralized Management**: Single point of network control
 
-## How to use
-- Set `host_project_id` and `service_project_id` as variables.
-- This module configures the host project and attaches service projects, allowing them to use the shared network resources.
+## Architecture
+The module creates:
+- `google_compute_shared_vpc_host_project` - Configures the host project
+- `google_compute_shared_vpc_service_project` - Attaches service project to host
 
-## How it's used in this project
-This file provides a modular approach to Shared VPC, making it easy to scale and manage network resources across multiple GCP projects in an enterprise environment.
+## Configuration
+```hcl
+# In terraform.tfvars or variables
+enable_shared_vpc = true
+host_project_id   = "network-host-project"
+project_id        = "service-project-123"  # This project becomes a service project
+```
+
+## Variables
+- `enable_shared_vpc` (bool) - Whether to enable Shared VPC (default: false)
+- `host_project_id` (string) - The project ID of the Shared VPC host
+- `project_id` (string) - The current project ID (becomes service project)
+
+## Outputs
+- `shared_vpc_host_project_id` - The ID of the Shared VPC host project (null if disabled)
+- `shared_vpc_service_project_id` - The ID of the attached service project (null if disabled)
+
+## Use Cases
+- **Enterprise Networks**: Centralized network management across departments
+- **Multi-Project Applications**: Applications spanning multiple projects
+- **Security Compliance**: Centralized network security policies
+- **Cost Optimization**: Shared network resources and IP address management
+
+## Best Practices
+- Designate dedicated host projects for network resources
+- Use IAM roles to control access to shared network resources
+- Plan IP address allocation across all service projects
+- Monitor network usage and costs at the host project level
+- Document Shared VPC relationships for compliance and auditing
