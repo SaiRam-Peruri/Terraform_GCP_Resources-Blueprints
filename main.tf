@@ -33,15 +33,17 @@ module "compute" {
   subnet_id    = null
 }
 
-// Storage
+// Storage - commented out due to permission issues during import
+/*
 module "storage" {
   source             = "./storage"
   project_id         = var.project_id
   bucket_name        = var.bucket_name
   location           = var.region
-  force_destroy      = false  # Production setting - prevents accidental deletion
+  force_destroy      = false # Production setting - prevents accidental deletion
   versioning_enabled = true
 }
+*/
 
 // IAM
 module "iam" {
@@ -86,32 +88,33 @@ module "monitoring" {
   uptime_check_name         = var.monitoring_uptime_check_name
 }
 
-// Note: Additional modules are available but commented out pending variable consolidation
-// TODO: Uncomment and configure containers, devops, scheduler_messaging, and advanced modules
-// when their variables are properly consolidated
+// Note: Some modules temporarily commented out to fix variable conflicts
+// Will be re-enabled after cleaning up duplicate variable declarations
 
 /*
 // Containers
 module "containers" {
-  source       = "./containers"
-  project_id   = var.project_id
-  region       = var.region
-  cluster_name = var.gke_name
-  network_id   = module.networking.vpc_id
-  subnet_id    = module.networking.subnet_id
-  node_pool_name = "${var.gke_name}-nodes"
+  source         = "./containers"
+  project_id     = var.project_id
+  region         = var.region
+  cluster_name   = var.gke_name
+  network_id     = module.networking.vpc_network_id
+  subnet_id      = module.networking.subnet_id
+  node_pool_name = var.gke_node_pool_name
+  node_count     = var.gke_node_count
+  machine_type   = var.gke_machine_type
 }
 
 // DevOps
 module "devops" {
   source        = "./devops"
   project_id    = var.project_id
-  location      = var.region
+  location      = var.devops_location
   name          = var.devops_name
   trigger_name  = "${var.devops_name}-trigger"
   owner         = var.github_owner
-  repo_name     = var.github_repo
-  repository_id = var.source_repo_id
+  repo_name     = var.devops_repo_name
+  repository_id = var.devops_repository_id
 }
 
 // Scheduler & Messaging
@@ -119,8 +122,8 @@ module "scheduler_messaging" {
   source            = "./scheduler_messaging"
   project_id        = var.project_id
   name              = var.scheduler_name
-  topic_name        = "${var.scheduler_name}-topic"
-  subscription_name = "${var.scheduler_name}-sub"
+  topic_name        = var.scheduler_topic_name
+  subscription_name = var.scheduler_subscription_name
   schedule          = var.scheduler_cron
   topic             = var.pubsub_topic
   pubsub_topic      = var.pubsub_topic
@@ -128,11 +131,9 @@ module "scheduler_messaging" {
 
 // Advanced Features (KMS, Secrets, VPC Peering, etc.)
 module "advanced" {
-  source               = "./advanced"
-  project_id           = var.project_id
-  region               = var.region
-  service_project_id   = var.project_id
-  crypto_key_name      = "${var.advanced_name}-key"
-  access_policy_title  = "${var.advanced_name}-policy"
+  source       = "./advanced"
+  project_id   = var.project_id
+  project_name = var.project_name
+  region       = var.region
 }
 */

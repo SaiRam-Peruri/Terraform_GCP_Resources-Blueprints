@@ -34,7 +34,7 @@ locals {
   image        = var.image
 
   # Cloud Tasks configuration
-  queue_name = var.queue_name != null ? var.queue_name : "${var.name}-queue"
+  queue_name = var.queue_name != null ? var.queue_name : "${var.name}-queue-v3"
 
   # Eventarc configuration
   trigger_name            = var.trigger_name != null ? var.trigger_name : "${var.name}-trigger"

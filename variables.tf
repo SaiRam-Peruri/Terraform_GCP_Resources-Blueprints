@@ -124,3 +124,98 @@ variable "monitoring_uptime_check_name" {
   description = "Name for uptime check."
   type        = string
 }
+
+// Containers module variables
+variable "gke_name" {
+  description = "The name of the GKE cluster."
+  type        = string
+}
+
+// DevOps module variables
+variable "devops_name" {
+  description = "The name of the DevOps resources."
+  type        = string
+}
+
+variable "github_owner" {
+  description = "The GitHub repository owner."
+  type        = string
+}
+
+variable "github_repo" {
+  description = "The GitHub repository name."
+  type        = string
+}
+
+variable "source_repo_id" {
+  description = "The Cloud Source Repository ID."
+  type        = string
+}
+
+// Scheduler & Messaging module variables
+variable "scheduler_name" {
+  description = "The name of the scheduler resources."
+  type        = string
+}
+
+variable "scheduler_cron" {
+  description = "The cron schedule for Cloud Scheduler."
+  type        = string
+  default     = "0 9 * * 1" # Every Monday at 9 AM
+}
+
+variable "pubsub_topic" {
+  description = "The name of the Pub/Sub topic."
+  type        = string
+}
+
+// Advanced module variables
+variable "advanced_name" {
+  description = "The name prefix for advanced features."
+  type        = string
+}
+
+// Additional container variables
+variable "gke_node_pool_name" {
+  description = "The name of the GKE node pool."
+  type        = string
+}
+
+variable "gke_node_count" {
+  description = "The number of nodes in the GKE cluster."
+  type        = number
+  default     = 1
+}
+
+variable "gke_machine_type" {
+  description = "The machine type for GKE nodes."
+  type        = string
+  default     = "e2-medium"
+}
+
+// Additional devops variables
+variable "devops_location" {
+  description = "The location for DevOps resources."
+  type        = string
+}
+
+variable "devops_repo_name" {
+  description = "The DevOps repository name."
+  type        = string
+}
+
+variable "devops_repository_id" {
+  description = "The Artifact Registry repository ID."
+  type        = string
+}
+
+// Additional scheduler variables
+variable "scheduler_topic_name" {
+  description = "The name of the scheduler Pub/Sub topic."
+  type        = string
+}
+
+variable "scheduler_subscription_name" {
+  description = "The name of the scheduler Pub/Sub subscription."
+  type        = string
+}

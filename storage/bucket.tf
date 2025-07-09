@@ -29,6 +29,11 @@ resource "google_storage_bucket" "bucket" {
     environment = "development"
     managed-by  = "terraform"
   }
+
+  # Prevent accidental deletion of the state bucket
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 output "bucket_name" {

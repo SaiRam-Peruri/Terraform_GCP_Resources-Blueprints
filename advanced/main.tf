@@ -88,18 +88,3 @@ output "kms_key_ring_id" {
   description = "The ID of the KMS key ring"
   value       = google_kms_key_ring.key_ring.id
 }
-
-output "kms_crypto_key_id" {
-  description = "The ID of the KMS crypto key"
-  value       = google_kms_crypto_key.crypto_key.id
-}
-
-output "secret_manager_secret_id" {
-  description = "The ID of the Secret Manager secret"
-  value       = google_secret_manager_secret.secret.secret_id
-}
-
-output "secret_manager_secret_name" {
-  description = "The full name of the Secret Manager secret"
-  value       = google_secret_manager_secret.secret.name
-}

@@ -1,30 +1,5 @@
 // GCP GKE Cluster - modular and production-grade
 
-variable "project_id" {
-  description = "The GCP project ID."
-  type        = string
-}
-
-variable "region" {
-  description = "The region for the GKE cluster."
-  type        = string
-}
-
-variable "cluster_name" {
-  description = "The name of the GKE cluster."
-  type        = string
-}
-
-variable "network_id" {
-  description = "The VPC network ID."
-  type        = string
-}
-
-variable "subnet_id" {
-  description = "The subnetwork ID."
-  type        = string
-}
-
 resource "google_container_cluster" "gke" {
   name       = var.cluster_name
   project    = var.project_id

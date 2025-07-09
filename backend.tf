@@ -1,10 +1,9 @@
 #backend configuration
-#Temporarily commented out for cleanup - uncomment for production use
-
+#Bucket now exists - enabling remote state storage
 
 terraform {
   backend "gcs" {
-    bucket = "my-terraform-state-bucket-sairam" # Replace with your GCS bucket for state
+    bucket = "my-terraform-state-bucket-sairam" # Bucket created successfully
     prefix = "terraform/state/provider"
   }
 }

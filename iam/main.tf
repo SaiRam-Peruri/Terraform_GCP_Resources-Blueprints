@@ -29,7 +29,7 @@ locals {
   members = var.members
 
   # Workload identity configuration
-  pool_id = var.pool_id != null ? var.pool_id : "${var.account_id}-pool"
+  pool_id = var.pool_id != null ? var.pool_id : "${var.account_id}-wi-pool-v3"
   pool_display_name = "WI Pool" # Keep under 32 characters
 
   # Audit logging configuration
