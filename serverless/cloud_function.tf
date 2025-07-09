@@ -5,7 +5,7 @@
 resource "google_cloudfunctions_function" "function" {
   # Only create if source_archive_bucket is provided
   count = local.source_archive_bucket != null && local.source_archive_object != null ? 1 : 0
-  
+
   name        = local.function_name
   project     = local.project_id
   region      = local.region

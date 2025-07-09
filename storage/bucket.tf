@@ -30,10 +30,8 @@ resource "google_storage_bucket" "bucket" {
     managed-by  = "terraform"
   }
 
-  # Prevent accidental deletion of the state bucket
-  lifecycle {
-    prevent_destroy = true
-  }
+  # Note: This is the project bucket, not the state bucket
+  # Can be destroyed/recreated as needed
 }
 
 output "bucket_name" {

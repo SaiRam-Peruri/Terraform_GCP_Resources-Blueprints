@@ -78,19 +78,27 @@ This is a **production-grade, fully refactored** Terraform GCP Resources-Bluepri
 ```
 Terraform_GCP_Resources-Blueprints/
 ├── main.tf                           # Root module orchestrating all components
-├── variables.tf                      # Global variable definitions
+├── variables.tf                      # Global variable definitions  
 ├── terraform.tfvars                  # Variable values (customize for your environment)
-├── backend.tf                        # Terraform state backend configuration
-├── PROJECT_COMPLETION_SUMMARY.md     # Detailed completion report
-├── README.md                         # This comprehensive guide
-├── INSTRUCTIONS.md                   # Deployment instructions
-├── TROUBLESHOOTING_AND_TIPS.md       # Common issues and solutions
+├── backend.tf                        # Terraform state backend configuration (commented)
+├── .terraform.lock.hcl               # Provider version lock file
+├── .gitignore                        # Git ignore patterns
 │
-├── provider/                         # API enablement module
+├── README.md                         # 📖 This comprehensive guide
+├── INSTRUCTIONS.md                   # 📋 Deployment instructions
+├── PROJECT_COMPLETION_SUMMARY.md     # 📊 Detailed completion report
+├── REFACTORING_COMPLETE.md           # ✅ Refactoring completion details
+├── TROUBLESHOOTING_AND_TIPS.md       # 🔧 Common issues and solutions
+│
+├── terraform.tfstate                 # Current Terraform state (local)
+├── terraform.tfstate.backup         # State backup files
+├── bucket-backup.tfstate             # Exported state backup
+│
+├── provider/                         # ✅ ACTIVE: API enablement module
 │   ├── required_api's.tf            # All 21 required GCP APIs
 │   └── variables.tf                 # Provider module variables
 │
-├── compute/                          # Compute Engine resources
+├── compute/                          # ✅ ACTIVE: Compute Engine resources
 │   ├── main.tf                      # Module configuration
 │   ├── variables.tf                 # Compute variables
 │   ├── vm.tf                        # Virtual machine instances
@@ -99,13 +107,13 @@ Terraform_GCP_Resources-Blueprints/
 │   ├── managed_instance_group.tf    # Auto-scaling groups
 │   └── startup_script.tf            # VM initialization scripts
 │
-├── storage/                          # Cloud Storage resources
+├── storage/                          # ✅ ACTIVE: Cloud Storage resources
 │   ├── main.tf                      # Module configuration
 │   ├── variables.tf                 # Storage variables
 │   ├── bucket.tf                    # Storage buckets (includes lifecycle & versioning)
 │   └── bucket_iam.tf                # Bucket access policies
 │
-├── networking/                       # VPC and networking
+├── networking/                       # ✅ ACTIVE: VPC and networking
 │   ├── main.tf                      # Module configuration
 │   ├── variables.tf                 # Networking variables
 │   ├── vpc.tf                       # Virtual Private Cloud
@@ -116,7 +124,7 @@ Terraform_GCP_Resources-Blueprints/
 │   ├── nat_gateway.tf               # NAT Gateway
 │   └── private_google_access.tf     # Private Google Access subnet
 │
-├── iam/                             # Identity and Access Management
+├── iam/                             # ✅ ACTIVE: Identity and Access Management
 │   ├── main.tf                      # Module configuration
 │   ├── variables.tf                 # IAM variables
 │   ├── service_account.tf           # Service accounts
@@ -142,7 +150,7 @@ Terraform_GCP_Resources-Blueprints/
 │   ├── cloud_tasks.tf               # Cloud Tasks queues
 │   └── eventarc.tf                  # Event-driven triggers
 │
-├── monitoring/                      # Observability and monitoring
+├── monitoring/                      # ✅ ACTIVE: Observability and monitoring
 │   ├── main.tf                      # Module configuration
 │   ├── variables.tf                 # Monitoring variables
 │   ├── alert_policy.tf              # Alert policies
@@ -150,48 +158,61 @@ Terraform_GCP_Resources-Blueprints/
 │   ├── monitoring.tf                # Monitoring resources
 │   └── uptime_check.tf              # Uptime monitoring
 │
-├── containers/                      # Container orchestration
-│   ├── gke_cluster.tf               # Google Kubernetes Engine
-│   ├── node_pool.tf                 # GKE node pools
-│   ├── gke_addons.tf                # GKE add-ons
-│   ├── gke_autopilot.tf             # Autopilot clusters
-│   └── variables.tf                 # Container variables
+├── examples/                        # 📘 EXAMPLE MODULES (Not deployed)
+│   ├── containers/                  # Container orchestration (GKE)
+│   │   ├── README.md               # Module documentation & enable instructions
+│   │   ├── gke_cluster.tf          # Google Kubernetes Engine
+│   │   ├── node_pool.tf            # GKE node pools
+│   │   ├── gke_addons.tf           # GKE add-ons
+│   │   ├── gke_autopilot.tf        # Autopilot clusters
+│   │   └── variables.tf            # Container variables
+│   │
+│   ├── devops/                      # DevOps and CI/CD
+│   │   ├── README.md               # Module documentation & enable instructions
+│   │   ├── artifact_registry.tf    # Container registry
+│   │   ├── cloudbuild.tf           # Build automation
+│   │   ├── github_trigger.tf       # GitHub integration
+│   │   ├── source_repo.tf          # Source repositories
+│   │   └── variables.tf            # DevOps variables
+│   │
+│   ├── scheduler_messaging/         # Event-driven architecture
+│   │   ├── README.md               # Module documentation & enable instructions
+│   │   ├── cloud_scheduler.tf      # Cron jobs
+│   │   ├── email_notification.tf   # Email services
+│   │   ├── pubsub_topic.tf         # Message topics
+│   │   ├── pubsub_subscription.tf  # Message subscriptions
+│   │   └── variables.tf            # Messaging variables
+│   │
+│   ├── advanced/                    # Advanced security features
+│   │   ├── README.md               # Module documentation & enable instructions
+│   │   ├── access_context.tf       # Access Context Manager
+│   │   ├── kms.tf                  # Key Management Service
+│   │   ├── secrets_manager.tf      # Secret management
+│   │   ├── shared_vpc.tf           # VPC sharing
+│   │   ├── vpc_peering.tf          # VPC peering
+│   │   └── variables.tf            # Advanced variables
+│   │
+│   └── outputs/                     # Output values
+│       ├── README.md               # Module documentation & enable instructions
+│       ├── outputs.tf              # Infrastructure outputs
+│       └── variables.tf            # Output variables
 │
-├── devops/                          # DevOps and CI/CD
-│   ├── artifact_registry.tf         # Container registry
-│   ├── cloudbuild.tf                # Build automation
-│   ├── github_trigger.tf            # GitHub integration
-│   ├── source_repo.tf               # Source repositories
-│   └── variables.tf                 # DevOps variables
-│
-├── scheduler_messaging/             # Event-driven architecture
-│   ├── cloud_scheduler.tf           # Cron jobs
-│   ├── email_notification.tf        # Email services
-│   ├── pubsub_topic.tf              # Message topics
-│   ├── pubsub_subscription.tf       # Message subscriptions
-│   └── variables.tf                 # Messaging variables
-│
-├── advanced/                        # Advanced security features
-│   ├── access_context.tf            # Access Context Manager
-│   ├── kms.tf                       # Key Management Service
-│   ├── secrets_manager.tf           # Secret management
-│   ├── shared_vpc.tf                # VPC sharing
-│   ├── vpc_peering.tf               # VPC peering
-│   └── variables.tf                 # Advanced variables
-│
-├── outputs/                         # Output values
-│   ├── outputs.tf                   # Infrastructure outputs
-│   └── variables.tf                 # Output variables
-│
-└── documentation/                   # Comprehensive documentation
-    ├── compute/                     # Compute documentation
-    ├── storage/                     # Storage documentation
-    ├── networking/                  # Networking documentation
-    ├── iam/                         # IAM documentation
-    ├── database/                    # Database documentation
-    ├── serverless/                  # Serverless documentation
-    ├── monitoring/                  # Monitoring documentation
-    └── [other modules]/             # Additional documentation
+└── documentation/                   # 📚 Comprehensive documentation
+    ├── README.md                   # Documentation overview
+    ├── provider/                   # Provider documentation
+    ├── compute/                    # Compute Engine documentation
+    ├── storage/                    # Storage documentation
+    ├── networking/                 # Networking documentation
+    ├── iam/                        # IAM documentation
+    ├── database/                   # Database documentation
+    ├── serverless/                 # Serverless documentation
+    ├── monitoring/                 # Monitoring documentation
+    └── examples/                   # Example module documentation
+        ├── advanced/               # Advanced security features docs
+        ├── containers/             # Container orchestration docs
+        ├── devops/                 # DevOps and CI/CD docs
+        ├── outputs/                # Output values docs
+        └── scheduler_messaging/    # Event-driven architecture docs
 ```
 
 ---
@@ -291,6 +312,54 @@ module "networking" {
   project_id = var.project_id
   region     = var.region
   vpc_name   = var.vpc_name
+}
+```
+
+---
+
+## 📦 **Module Structure & Status**
+
+### **🟢 ACTIVE MODULES** (Currently Deployed - 40 Resources)
+These modules are **active in main.tf** and **successfully deployed**:
+
+| **Module** | **Resources** | **Description** |
+|------------|---------------|-----------------|
+| **provider/** | 21 APIs | Required GCP APIs and project configuration |
+| **networking/** | 4 resources | VPC, Subnet, Router, NAT Gateway |
+| **compute/** | 1 resource | VM instances and compute resources |
+| **storage/** | 1 resource | Cloud Storage buckets (project bucket) |
+| **iam/** | 3 resources | Service accounts, IAM policies, Workload Identity |
+| **serverless/** | 2 resources | Cloud Run, Cloud Tasks |
+| **database/** | 4 resources | Cloud SQL, BigQuery, Firestore, Redis |
+| **monitoring/** | 4 resources | Alerts, logging, uptime checks |
+
+### **🔵 EXAMPLE MODULES** (Available for Future Use)
+These modules are **fully functional** but located in `examples/` directory and **not currently deployed**:
+
+| **Module** | **Location** | **Purpose** | **Ready for** |
+|------------|--------------|-------------|---------------|
+| **examples/containers/** | `examples/containers/` | GKE clusters, node pools, autopilot | Kubernetes workloads |
+| **examples/devops/** | `examples/devops/` | CI/CD, Artifact Registry, Cloud Build | DevOps pipelines |
+| **examples/scheduler_messaging/** | `examples/scheduler_messaging/` | Cloud Scheduler, Pub/Sub | Event-driven architecture |
+| **examples/advanced/** | `examples/advanced/` | KMS, Secrets Manager, VPC Peering | Advanced security & networking |
+| **examples/outputs/** | `examples/outputs/` | Consolidated output values | Multi-module deployments |
+
+### **📝 How to Enable Example Modules**
+To deploy any example module:
+1. Copy module from `examples/` to root directory
+2. Uncomment the module in `main.tf`
+3. Add required variables to `terraform.tfvars`
+4. Run `terraform plan` and `terraform apply`
+
+**Example:**
+```bash
+# Copy example module to root
+cp -r examples/containers ./
+
+# Uncomment in main.tf
+module "containers" {
+  source = "./containers"
+  // ... configuration
 }
 ```
 
