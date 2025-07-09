@@ -21,7 +21,7 @@ resource "google_compute_instance" "vm_instance" {
   }
 
   metadata = {
-    startup-script = "#!/bin/bash\necho 'Hello World' > /tmp/hello.txt"
+    startup-script = "#!/bin/bash\n echo 'Hello World' > /tmp/hello.txt"
   }
 
   tags = ["http-server", "https-server"]

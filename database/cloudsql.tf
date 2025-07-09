@@ -7,6 +7,7 @@ resource "google_sql_database_instance" "default" {
   project          = local.project_id
   region           = local.region
   database_version = local.database_version
+  deletion_protection = true  # Production setting - prevents accidental deletion
 
   settings {
     tier = local.tier

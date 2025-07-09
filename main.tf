@@ -39,7 +39,7 @@ module "storage" {
   project_id         = var.project_id
   bucket_name        = var.bucket_name
   location           = var.region
-  force_destroy      = false
+  force_destroy      = false  # Production setting - prevents accidental deletion
   versioning_enabled = true
 }
 
