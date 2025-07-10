@@ -5,7 +5,7 @@ resource "google_iam_workload_identity_pool" "pool" {
   project                   = local.project_id
   workload_identity_pool_id = local.pool_id
   display_name              = local.pool_display_name
-  
+
   # Add lifecycle rule to handle conflicts gracefully
   lifecycle {
     # Ignore changes to description if resource needs to be recreated

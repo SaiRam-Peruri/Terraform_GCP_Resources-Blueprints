@@ -1,7 +1,7 @@
 // GCP Storage Bucket - modular and production-grade
 
 resource "google_storage_bucket" "bucket" {
-  name          = var.bucket_name
+  name          = local.bucket_name_final
   project       = var.project_id
   location      = var.location
   force_destroy = var.force_destroy

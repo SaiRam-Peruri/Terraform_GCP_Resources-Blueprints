@@ -1,8 +1,8 @@
 // Root main.tf to orchestrate all modules in a production GCP Terraform project
 
-// Enable required APIs (provider/required_api's.tf)
+// Enable required APIs (apis/required_api's.tf)
 module "required_apis" {
-  source     = "./provider"
+  source     = "./apis"
   project_id = var.project_id
   name       = var.project_name
 }
@@ -72,7 +72,7 @@ module "monitoring" {
   project_id                = var.project_id
   alert_policy_display_name = var.alert_policy_display_name
   display_name              = var.monitoring_display_name
-  destination               = var.monitoring_destination
+  destination               = "storage.googleapis.com/${module.storage.bucket_name}"
   labels                    = var.monitoring_labels
   type                      = var.monitoring_type
   sink_name                 = var.monitoring_sink_name

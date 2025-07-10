@@ -19,21 +19,24 @@ locals {
   # Base name configuration
   base_name = var.name
 
-  # Cloud SQL configuration
-  cloudsql_instance_name = var.cloudsql_instance_name != null ? var.cloudsql_instance_name : "${var.name}-sql"
+  # Timestamp for conflict-free naming
+  timestamp = formatdate("YYYYMMDD-hhmm", timestamp())
+
+  # Cloud SQL configuration - use timestamp to avoid 7-day retention conflicts
+  cloudsql_instance_name = var.cloudsql_instance_name != null ? var.cloudsql_instance_name : "${var.name}-sql-${local.timestamp}"
   database_version       = var.database_version
   tier                   = var.tier
   root_password          = var.root_password
 
-  # BigQuery configuration
-  dataset_id  = var.dataset_id != null ? var.dataset_id : "${replace(var.name, "-", "_")}_dataset"
+  # BigQuery configuration - use timestamp to avoid retention conflicts
+  dataset_id  = var.dataset_id != null ? var.dataset_id : "${replace(var.name, "-", "_")}_dataset_${formatdate("YYYYMMDD_hhmm", timestamp())}"
   description = var.description
 
-  # Firestore configuration
+  # Firestore configuration (cannot use timestamp - only one default per project)
   firestore_type = var.firestore_type
 
-  # Memorystore configuration
-  memorystore_name = var.memorystore_name != null ? var.memorystore_name : "${var.name}-cache"
+  # Memorystore configuration - use timestamp to avoid retention conflicts
+  memorystore_name = var.memorystore_name != null ? var.memorystore_name : "${var.name}-cache-${local.timestamp}"
   memory_size_gb   = var.memory_size_gb
   redis_tier       = var.redis_tier
 

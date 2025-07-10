@@ -17,8 +17,11 @@ locals {
   # Base name configuration
   base_name = var.name
 
-  # Cloud Function configuration
-  function_name         = var.function_name != null ? var.function_name : "${var.name}-function"
+  # Timestamp for conflict-free naming
+  timestamp = formatdate("YYYYMMDD-hhmm", timestamp())
+
+  # Cloud Function configuration - use timestamp to avoid deployment conflicts
+  function_name         = var.function_name != null ? var.function_name : "${var.name}-function-${local.timestamp}"
   entry_point           = var.entry_point
   runtime               = var.runtime
   source_archive_bucket = var.source_archive_bucket
@@ -29,16 +32,15 @@ locals {
   trigger_http          = var.trigger_http
   event_trigger         = var.event_trigger
 
-  # Cloud Run configuration
-  service_name = var.service_name != null ? var.service_name : "${var.name}-service"
+  # Cloud Run configuration - use timestamp to avoid naming conflicts
+  service_name = var.service_name != null ? var.service_name : "${var.name}-service-${local.timestamp}"
   image        = var.image
 
   # Cloud Tasks configuration - use timestamp to avoid retention conflicts
-  timestamp  = formatdate("YYYYMMDD-hhmm", timestamp())
   queue_name = var.queue_name != null ? var.queue_name : "terraform-tasks-queue-${local.timestamp}"
 
-  # Eventarc configuration
-  trigger_name            = var.trigger_name != null ? var.trigger_name : "${var.name}-trigger"
+  # Eventarc configuration - use timestamp to avoid naming conflicts
+  trigger_name            = var.trigger_name != null ? var.trigger_name : "${var.name}-trigger-${local.timestamp}"
   destination_run_service = var.destination_run_service
   event_filters           = var.event_filters
 

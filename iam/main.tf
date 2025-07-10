@@ -29,8 +29,8 @@ locals {
   members = var.members
 
   # Workload identity configuration - use timestamp to avoid soft-delete conflicts
-  timestamp     = formatdate("YYYYMMDD-hhmm", timestamp())
-  pool_id       = var.pool_id != null ? var.pool_id : "terraform-wi-pool-${local.timestamp}"
+  timestamp         = formatdate("YYYYMMDD-hhmm", timestamp())
+  pool_id           = var.pool_id != null ? var.pool_id : "terraform-wi-pool-${local.timestamp}"
   pool_display_name = "Terraform WI Pool ${local.timestamp}"
 
   # Audit logging configuration
