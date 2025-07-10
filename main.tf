@@ -1,10 +1,5 @@
 // Root main.tf to orchestrate all modules in a production GCP Terraform project
 
-provider "google" {
-  project = var.project_id
-  region  = var.region
-}
-
 // Enable required APIs (provider/required_api's.tf)
 module "required_apis" {
   source     = "./provider"
