@@ -28,9 +28,10 @@ locals {
   role    = var.role
   members = var.members
 
-  # Workload identity configuration
-  pool_id           = var.pool_id != null ? var.pool_id : "${var.account_id}-wi-pool-v3"
-  pool_display_name = "WI Pool" # Keep under 32 characters
+  # Workload identity configuration - use timestamp to avoid soft-delete conflicts
+  timestamp     = formatdate("YYYYMMDD-hhmm", timestamp())
+  pool_id       = var.pool_id != null ? var.pool_id : "terraform-wi-pool-${local.timestamp}"
+  pool_display_name = "Terraform WI Pool ${local.timestamp}"
 
   # Audit logging configuration
   service   = var.service != null ? var.service : "storage.googleapis.com"

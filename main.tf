@@ -71,7 +71,7 @@ module "database" {
   redis_tier = var.redis_tier
 }
 
-// Monitoring
+// Monitoring (depends on storage bucket)
 module "monitoring" {
   source                    = "./monitoring"
   project_id                = var.project_id
@@ -84,5 +84,8 @@ module "monitoring" {
   host                      = var.monitoring_host
   conditions                = var.monitoring_conditions
   uptime_check_name         = var.monitoring_uptime_check_name
+  
+  # Ensure storage bucket is created before logging sink
+  depends_on = [module.storage]
 }
 

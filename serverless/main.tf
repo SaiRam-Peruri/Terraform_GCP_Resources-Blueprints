@@ -33,8 +33,9 @@ locals {
   service_name = var.service_name != null ? var.service_name : "${var.name}-service"
   image        = var.image
 
-  # Cloud Tasks configuration
-  queue_name = var.queue_name != null ? var.queue_name : "${var.name}-queue-v3"
+  # Cloud Tasks configuration - use timestamp to avoid retention conflicts
+  timestamp  = formatdate("YYYYMMDD-hhmm", timestamp())
+  queue_name = var.queue_name != null ? var.queue_name : "terraform-tasks-queue-${local.timestamp}"
 
   # Eventarc configuration
   trigger_name            = var.trigger_name != null ? var.trigger_name : "${var.name}-trigger"
