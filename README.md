@@ -2,7 +2,7 @@
 
 # 🧱 Terraform GCP Resource Blueprints
 
-### 🏗️ Reusable, production-minded Terraform modules for GCP — compute, networking, storage, databases, serverless, IAM and monitoring.
+### Reusable, production-minded Terraform modules for GCP — compute, networking, storage, databases, serverless, IAM and monitoring.
 
 <p>
 <img alt="Terraform" src="https://img.shields.io/badge/Terraform-844FBA?style=for-the-badge&logo=terraform&logoColor=white"/>
