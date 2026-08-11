@@ -1,4 +1,23 @@
-# 🚀 Terraform GCP Resources-Blueprints
+<div align="center">
+
+# 🧱 Terraform GCP Resource Blueprints
+
+### 🏗️ Reusable, production-minded Terraform modules for GCP — compute, networking, storage, databases, serverless, IAM and monitoring.
+
+<p>
+<img alt="Terraform" src="https://img.shields.io/badge/Terraform-844FBA?style=for-the-badge&logo=terraform&logoColor=white"/>
+<img alt="HCL" src="https://img.shields.io/badge/HCL-844FBA?style=for-the-badge&logo=terraform&logoColor=white"/>
+<img alt="Google Cloud" src="https://img.shields.io/badge/Google%20Cloud-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white"/>
+<img alt="IaC" src="https://img.shields.io/badge/IaC-5835CC?style=for-the-badge&logo=ansible&logoColor=white"/>
+</p>
+
+<p>
+<img alt="last commit" src="https://img.shields.io/github/last-commit/SaiRam-Peruri/Terraform_GCP_Resources-Blueprints?style=flat-square&color=00D4FF"/>
+<img alt="repo size" src="https://img.shields.io/github/repo-size/SaiRam-Peruri/Terraform_GCP_Resources-Blueprints?style=flat-square&color=7B2CBF"/>
+<img alt="top language" src="https://img.shields.io/github/languages/top/SaiRam-Peruri/Terraform_GCP_Resources-Blueprints?style=flat-square&color=00A67E"/>
+</p>
+
+</div>
 
 **Author:** Sairam Peruri  
 **Status:** ✅ Production-Ready & Fully Deployed  
@@ -217,15 +236,15 @@ Terraform_GCP_Resources-Blueprints/
 
 ---
 
-## � **Quick Start**
+## 🚀 � **Quick Start**
 
-### **Prerequisites**
+### 📦 **Prerequisites**
 - [Terraform](https://terraform.io/downloads.html) >= 1.0
 - [Google Cloud SDK](https://cloud.google.com/sdk) configured
 - GCP Project with billing enabled
 - Terraform authenticated with GCP
 
-### **1. Clone and Configure**
+### 🔐 **1. Clone and Configure**
 ```bash
 git clone <repository-url>
 cd Terraform_GCP_Resources-Blueprints
@@ -237,14 +256,14 @@ cd Terraform_GCP_Resources-Blueprints
 nano terraform.tfvars
 ```
 
-### **3. Deploy Infrastructure**
+### 📁 **3. Deploy Infrastructure**
 ```bash
 terraform init
 terraform plan
 terraform apply
 ```
 
-### **4. Verify Deployment**
+### ☁️ **4. Verify Deployment**
 ```bash
 terraform state list    # View all deployed resources
 terraform show          # Detailed resource information
@@ -303,7 +322,7 @@ terraform apply
 terraform destroy
 ```
 
-### **Modular Usage**
+### 🚀 **Modular Usage**
 Each module can be used independently:
 ```hcl
 module "networking" {
@@ -376,12 +395,12 @@ module "containers" {
 
 ## 🎯 **Use Cases**
 
-### **Development & Testing**
+### 🧪 **Development & Testing**
 - Rapid environment provisioning
 - Consistent infrastructure across environments
 - Cost-effective resource management
 
-### **Production Workloads**
+### ☁️ **Production Workloads**
 - Scalable, reliable infrastructure
 - Enterprise security and compliance
 - Automated monitoring and alerting
@@ -429,3 +448,13 @@ Cloud Engineer & DevOps Specialist
 ---
 
 **🎉 Ready to deploy? Start with `terraform init` and build your cloud infrastructure!**
+
+---
+
+<div align="center">
+
+**Built by [Sai Ram Peruri](https://github.com/SaiRam-Peruri)** · AI Solutions Engineer · Former Cloud DevOps Engineer
+
+⭐ If this project helped you, consider starring the repo.
+
+</div>
